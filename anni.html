@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>15th Anniversary | Rejina & Najrul</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-rose: #ff4d6d;
+            --dark-rose: #590d22;
+            --glass: rgba(255, 255, 255, 0.12);
+            --gold: #ffb703;
+            --text: #fff0f3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #050101;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden; /* Prevent body scroll */
+            height: 100vh;
+            width: 100vw;
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- BACKGROUND LAYER --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #2b030f 0%, #050101 100%);
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--primary-rose);
+            opacity: 0.5;
+            pointer-events: none;
+            filter: drop-shadow(0 0 5px var(--primary-rose));
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* --- INTRO ANIMATION --- */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
+        .ribbon-box {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ribbon-half {
+            width: 50%;
+            height: 60px;
+            background: linear-gradient(90deg, var(--dark-rose), var(--primary-rose));
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .scissor {
+            position: absolute;
+            font-size: 45px;
+            z-index: 1001;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px var(--gold));
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+
+        .tap-hint {
+            margin-top: 80px;
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            letter-spacing: 2px;
+            animation: pulse 1.5s infinite;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        /* --- MAIN CARD --- */
+        #main-card-container {
+            width: 92vw;
+            max-width: 450px;
+            max-height: 88vh;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: clamp(1.5rem, 5vw, 2.5rem);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            overflow-y: auto; /* Handles small screen height */
+            scrollbar-width: none; /* Firefox */
+            display: none; /* Hidden initially */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        #main-card-container::-webkit-scrollbar { display: none; }
+
+        .anniversary-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(to bottom, #fff, #ffb3c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sub-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(255, 77, 109, 0.2);
+            border: 1px solid var(--primary-rose);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--soft-pink);
+        }
+
+        .couple-section {
+            margin: 20px 0;
+        }
+
+        .premium-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 8vw, 2.5rem);
+            font-weight: 700;
+            color: #ffffff;
+            display: block;
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .ampersand {
+            font-family: 'Great Vibes', cursive;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin: 5px 0;
+        }
+
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin: 15px auto;
+            opacity: 0.6;
+        }
+
+        .blessing-msg {
+            font-size: clamp(0.85rem, 3.5vw, 1rem);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        footer {
+            margin-top: 10px;
+            font-size: 0.7rem;
+            opacity: 0.6;
+            letter-spacing: 1px;
+            padding-bottom: 5px;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .snip-animation {
+            animation: snip 0.8s forwards;
+        }
+
+        @keyframes snip {
+            0% { transform: scale(1) rotate(0); }
+            50% { transform: scale(1.5) rotate(-20deg); }
+            100% { transform: scale(0) rotate(0); opacity: 0; }
+        }
+
+        .sparkle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="bg-canvas"></div>
+
+    <!-- Intro -->
+    <div id="intro-overlay">
+        <div class="ribbon-box">
+            <div class="ribbon-half" id="l-ribbon" style="border-radius: 0 4px 4px 0;"></div>
+            <div class="scissor" id="scissor">✂️</div>
+            <div class="ribbon-half" id="r-ribbon" style="border-radius: 4px 0 0 4px;"></div>
+        </div>
+        <div class="tap-hint">Tap Scissor to Open</div>
+    </div>
+
+    <!-- Main Card -->
+    <div id="main-card-container">
+        <div class="sub-badge">Together Since 2011</div>
+        
+        <h1 class="anniversary-title">15 Beautiful Years<br>of Love</h1>
+
+        <div class="couple-section">
+            <span class="premium-name">Rejina & Najrul</span>
+            <div class="ampersand">&</div>
+            <span class="premium-name">Amma & Abba</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="blessing-msg">
+            To the world, you are a couple, but to us, you are our world. 
+            May your love grow deeper with every passing sunrise. 
+            Happy 15th Anniversary!
+        </p>
+
+        <footer>
+            Made with ❤️ by Rezon and Nilu
+        </footer>
+    </div>
+
+    <script>
+        const scissor = document.getElementById('scissor');
+        const lRibbon = document.getElementById('l-ribbon');
+        const rRibbon = document.getElementById('r-ribbon');
+        const intro = document.getElementById('intro-overlay');
+        const card = document.getElementById('main-card-container');
+        const music = document.getElementById('bgMusic');
+
+        // Create Particles
+        function createHeart() {
+            const h = document.createElement('div');
+            h.className = 'heart';
+            h.innerHTML = '❤️';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 6000);
+        }
+        setInterval(createHeart, 400);
+
+        function createSparkles(x, y) {
+            for(let i=0; i<15; i++) {
+                const s = document.createElement('div');
+                s.className = 'sparkle';
+                s.style.width = s.style.height = Math.random() * 4 + 'px';
+                s.style.left = x + 'px';
+                s.style.top = y + 'px';
+                document.body.appendChild(s);
+                
+                const destX = (Math.random() - 0.5) * 200;
+                const destY = (Math.random() - 0.5) * 200;
+                
+                s.animate([
+                    { transform: 'translate(0,0) scale(1)', opacity: 1 },
+                    { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
+                ], { duration: 1000, easing: 'ease-out' }).onfinish = () => s.remove();
+            }
+        }
+
+        function reveal() {
+            // Attempt to play music
+            music.volume = 0.6;
+            music.play().catch(() => {
+                console.log("Autoplay blocked - will try again on tap");
+            });
+
+            // Scissor Snip
+            scissor.classList.add('snip-animation');
+            const rect = scissor.getBoundingClientRect();
+            createSparkles(rect.left + 20, rect.top + 20);
+
+            // Move Ribbons
+            setTimeout(() => {
+                lRibbon.style.transform = 'translateX(-100%)';
+                rRibbon.style.transform = 'translateX(100%)';
+                intro.style.opacity = '0';
+                
+                setTimeout(() => {
+                    intro.style.display = 'none';
+                    card.style.display = 'block';
+                    // Trigger Zoom In
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                    }, 50);
+                }, 800);
+            }, 500);
+        }
+
+        // Listeners
+        scissor.addEventListener('click', reveal);
+        // Fallback for click anywhere on intro
+        intro.addEventListener('click', (e) => {
+            if(e.target !== scissor) reveal();
+        }, {once: true});
+
+        // Global tap listener for music fallback (Browsers require interaction)
+        document.addEventListener('touchstart', () => {
+            if (music.paused) music.play();
+        }, {once: false});
+    </script>
+</body>
+</html>
